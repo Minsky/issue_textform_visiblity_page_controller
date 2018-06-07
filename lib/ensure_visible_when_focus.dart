@@ -1,3 +1,6 @@
+// Original source for EnsurVisibleWhenFocus: https://www.didierboelens.com/2018/04/hint-4-ensure-a-textfield-or-textformfield-is-visible-in-the-viewport-when-has-the-focus/)
+// by Didier Boelens
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -128,7 +131,7 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> wit
     // Get its offset
     ScrollPosition position = scrollableState.position;
     double alignment;
-    
+
     if (position.pixels > viewport.getOffsetToReveal(object, 0.0)) {
       // Move down to the top of the viewport
       alignment = 0.0;

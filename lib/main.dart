@@ -1,3 +1,6 @@
+// Original source for page controller setup: https://gist.github.com/collinjackson/4fddbfa2830ea3ac033e34622f278824
+// Original source for EnsurVisibleWhenFocus: https://www.didierboelens.com/2018/04/hint-4-ensure-a-textfield-or-textformfield-is-visible-in-the-viewport-when-has-the-focus/)
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -57,6 +60,9 @@ class TestPageviewControllerState extends State<TestPageviewController> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        title: new Text("PageViewController AppBar"),
+      ),
       body: new IconTheme(
         data: new IconThemeData(color: _kArrowColor),
         child: new Stack(
@@ -68,28 +74,28 @@ class TestPageviewControllerState extends State<TestPageviewController> {
                 return _pages[index % _pages.length];
               },
             ),
-//            new Positioned(
-//              bottom: 0.0,
-//              left: 0.0,
-//              right: 0.0,
-//              child: new Container(
-//                color: Colors.grey[800].withOpacity(0.5),
-//                padding: const EdgeInsets.all(20.0),
-//                child: new Center(
-//                  child: new DotsIndicator(
-//                    controller: _controller,
-//                    itemCount: _pages.length,
-//                    onPageSelected: (int page) {
-//                      _controller.animateToPage(
-//                        page,
-//                        duration: _kDuration,
-//                        curve: _kCurve,
-//                      );
-//                    },
-//                  ),
-//                ),
-//              ),
-//            ),
+            new Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: new Container(
+                color: Colors.grey[800].withOpacity(0.5),
+                padding: const EdgeInsets.all(20.0),
+                child: new Center(
+                  child: new DotsIndicator(
+                    controller: _controller,
+                    itemCount: _pages.length,
+                    onPageSelected: (int page) {
+                      _controller.animateToPage(
+                        page,
+                        duration: _kDuration,
+                        curve: _kCurve,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -123,11 +129,7 @@ class _VisibleFormPageState extends State<VisibleFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('My Test Page'),
-      ),
-      body: new SafeArea(
+    return new SafeArea(
         top: false,
         bottom: false,
         child: new Form(
@@ -224,8 +226,7 @@ class _VisibleFormPageState extends State<VisibleFormPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
