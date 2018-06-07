@@ -65,34 +65,31 @@ class TestPageviewControllerState extends State<TestPageviewController> {
       ),
       body: new IconTheme(
         data: new IconThemeData(color: _kArrowColor),
-        child: new Stack(
+        child: new Column(
           children: <Widget>[
-            new PageView.builder(
-              physics: new AlwaysScrollableScrollPhysics(),
-              controller: _controller,
-              itemBuilder: (BuildContext context, int index) {
-                return _pages[index % _pages.length];
-              },
+            new Expanded(
+              child: new PageView.builder(
+                physics: new AlwaysScrollableScrollPhysics(),
+                controller: _controller,
+                itemBuilder: (BuildContext context, int index) {
+                  return _pages[index % _pages.length];
+                },
+              ),
             ),
-            new Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: new Container(
-                color: Colors.grey[800].withOpacity(0.5),
-                padding: const EdgeInsets.all(20.0),
-                child: new Center(
-                  child: new DotsIndicator(
-                    controller: _controller,
-                    itemCount: _pages.length,
-                    onPageSelected: (int page) {
-                      _controller.animateToPage(
-                        page,
-                        duration: _kDuration,
-                        curve: _kCurve,
-                      );
-                    },
-                  ),
+            new Container(
+              color: Colors.grey[800].withOpacity(0.5),
+              padding: const EdgeInsets.all(20.0),
+              child: new Center(
+                child: new DotsIndicator(
+                  controller: _controller,
+                  itemCount: _pages.length,
+                  onPageSelected: (int page) {
+                    _controller.animateToPage(
+                      page,
+                      duration: _kDuration,
+                      curve: _kCurve,
+                    );
+                  },
                 ),
               ),
             ),
@@ -130,103 +127,103 @@ class _VisibleFormPageState extends State<VisibleFormPage> {
   @override
   Widget build(BuildContext context) {
     return new SafeArea(
-        top: false,
-        bottom: false,
-        child: new Form(
-          key: _formKey,
-          child: new SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                /* -- Something large -- */
-                Container(
-                  width: double.infinity,
-                  height: 150.0,
-                  color: Colors.red,
-                ),
+      top: false,
+      bottom: false,
+      child: new Form(
+        key: _formKey,
+        child: new SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              /* -- Something large -- */
+              Container(
+                width: double.infinity,
+                height: 150.0,
+                color: Colors.red,
+              ),
 
-                /* -- First Name -- */
-                new EnsureVisibleWhenFocused(
+              /* -- First Name -- */
+              new EnsureVisibleWhenFocused(
+                focusNode: _focusNodeFirstName,
+                child: new TextFormField(
+                  decoration: const InputDecoration(
+                    border: const UnderlineInputBorder(),
+                    filled: true,
+                    icon: const Icon(Icons.person),
+                    hintText: 'Enter your first name',
+                    labelText: 'First name *',
+                  ),
+                  onSaved: (String value) {
+                    //TODO
+                  },
+                  controller: _firstNameController,
                   focusNode: _focusNodeFirstName,
-                  child: new TextFormField(
-                    decoration: const InputDecoration(
-                      border: const UnderlineInputBorder(),
-                      filled: true,
-                      icon: const Icon(Icons.person),
-                      hintText: 'Enter your first name',
-                      labelText: 'First name *',
-                    ),
-                    onSaved: (String value) {
-                      //TODO
-                    },
-                    controller: _firstNameController,
-                    focusNode: _focusNodeFirstName,
-                  ),
                 ),
-                const SizedBox(height: 24.0),
+              ),
+              const SizedBox(height: 24.0),
 
-                /* -- Last Name -- */
-                new EnsureVisibleWhenFocused(
+              /* -- Last Name -- */
+              new EnsureVisibleWhenFocused(
+                focusNode: _focusNodeLastName,
+                child: new TextFormField(
+                  decoration: const InputDecoration(
+                    border: const UnderlineInputBorder(),
+                    filled: true,
+                    icon: const Icon(Icons.person),
+                    hintText: 'Enter your last name',
+                    labelText: 'Last name *',
+                  ),
+                  onSaved: (String value) {
+                    //TODO
+                  },
+                  controller: _lastNameController,
                   focusNode: _focusNodeLastName,
-                  child: new TextFormField(
-                    decoration: const InputDecoration(
-                      border: const UnderlineInputBorder(),
-                      filled: true,
-                      icon: const Icon(Icons.person),
-                      hintText: 'Enter your last name',
-                      labelText: 'Last name *',
-                    ),
-                    onSaved: (String value) {
-                      //TODO
-                    },
-                    controller: _lastNameController,
-                    focusNode: _focusNodeLastName,
+                ),
+              ),
+              const SizedBox(height: 24.0),
+
+              /* -- Some other fields -- */
+              new Container(
+                width: double.infinity,
+                height: 250.0,
+                color: Colors.blue,
+              ),
+
+              /* -- Description -- */
+              new EnsureVisibleWhenFocused(
+                focusNode: _focusNodeDescription,
+                child: new TextFormField(
+                  decoration: const InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: 'Tell us about yourself',
+                    labelText: 'Describe yourself',
                   ),
-                ),
-                const SizedBox(height: 24.0),
-
-                /* -- Some other fields -- */
-                new Container(
-                  width: double.infinity,
-                  height: 250.0,
-                  color: Colors.blue,
-                ),
-
-                /* -- Description -- */
-                new EnsureVisibleWhenFocused(
+                  onSaved: (String value) {
+                    //TODO
+                  },
+                  maxLines: 5,
+                  controller: _descriptionController,
                   focusNode: _focusNodeDescription,
-                  child: new TextFormField(
-                    decoration: const InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: 'Tell us about yourself',
-                      labelText: 'Describe yourself',
-                    ),
-                    onSaved: (String value) {
-                      //TODO
-                    },
-                    maxLines: 5,
-                    controller: _descriptionController,
-                    focusNode: _focusNodeDescription,
-                  ),
                 ),
-                const SizedBox(height: 24.0),
+              ),
+              const SizedBox(height: 24.0),
 
-                /* -- Save Button -- */
-                new Center(
-                  child: new RaisedButton(
-                    child: const Text('Save'),
-                    onPressed: () {
-                      //TODO
-                    },
-                  ),
+              /* -- Save Button -- */
+              new Center(
+                child: new RaisedButton(
+                  child: const Text('Save'),
+                  onPressed: () {
+                    //TODO
+                  },
                 ),
-                const SizedBox(height: 24.0),
-              ],
-            ),
+              ),
+              const SizedBox(height: 24.0),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 
